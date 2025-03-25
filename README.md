@@ -22,4 +22,5 @@ The agent interacts with the environment, stores experiences in the replay buffe
 
 Reward System: Positive rewards are given when the snake eats the fruit, and negative rewards are assigned for invalid moves (collisions). Additional small rewards or penalties are given based on the snake's proximity to the fruit.
 
-it include a virtual environment and a requirements.txt that list all the library needed.
+ I used a virtual environment to run it on visual studio code.
+ A requirements.txt that list all the library needed.
