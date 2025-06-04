@@ -2,6 +2,7 @@ Snake Game Q-learning Algorithm
 This project implements a simple reinforcement learning algorithm to train an agent to play Snake game using Q-learning. 
 The environment is built using a grid, the snake must move around the grid to eat fruit while avoiding collisions with the walls or itself. 
 The snake grows when it eats the fruit, and the goal is to maximize the total reward by eating fruit and avoiding game over.
+![SnakeRL](https://github.com/user-attachments/assets/70fb16b9-8986-4500-ae5c-eb9427bc8ccc)
 
 Algorithm Overview:
 The algorithm used is a Deep Q-Learning
