@@ -6,7 +6,7 @@ This project implements a simple Snake game AI agent using Deep Q-Learning. The 
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 - **Environment**: 6x6 grid (modifiable via `bord_size`)
 - **Agent Goal**: Eat fruit, grow in size, avoid death
@@ -15,7 +15,7 @@ This project implements a simple Snake game AI agent using Deep Q-Learning. The 
 
 ---
 
-## 🧠 Algorithm Highlights
+## Algorithm Highlights
 
 - **State Space**: Flattened grid where:
   - `0` = empty cell
@@ -83,7 +83,7 @@ Run `play_snake()` to launch manual mode.
 
 ---
 
-## 📦 Dependencies
+## Dependencies
 
 Install the required libraries using:
 
