@@ -1,6 +1,7 @@
 # 🐍 Snake Game with Deep Q-Learning
 
 This project implements a simple Snake game AI agent using Deep Q-Learning. The environment is custom-built on a grid, and the agent learns to navigate it, eat fruits, and avoid collisions with walls or itself using reinforcement learning principles.
+![sanke4](https://github.com/user-attachments/assets/3dbead89-9667-47c8-a9bf-dad7e98ba137)
 
 ![SnakeRL](https://github.com/user-attachments/assets/70fb16b9-8986-4500-ae5c-eb9427bc8ccc)
 
