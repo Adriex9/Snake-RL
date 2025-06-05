@@ -1,58 +1,46 @@
-# 🐍 Snake Game – Q-Learning Reinforcement Learning Agent
+# 🐍 Snake Game with Deep Q-Learning
 
-This project implements a **Q-Learning algorithm** to train an agent to play the classic **Snake Game** using deep reinforcement learning techniques.
-
-The environment is a grid-based board where the snake must eat fruits to grow while avoiding collisions with the walls and itself. The objective is to **maximize cumulative reward** through learned behavior.
-
----
-
-## 🎮 Game Environment
-
-- Grid-based board (default: **4x4**, easily configurable)
-- Snake moves toward randomly spawning fruit
-- The snake grows when eating fruit
-- Episode ends upon collision (wall or self)
+This project implements a simple Snake game AI agent using Deep Q-Learning. The environment is custom-built on a grid, and the agent learns to navigate it, eat fruits, and avoid collisions with walls or itself using reinforcement learning principles.
 
 ![SnakeRL](https://github.com/user-attachments/assets/70fb16b9-8986-4500-ae5c-eb9427bc8ccc)
 
 ---
 
-## 🤖 Algorithm Overview
+## 📌 Project Overview
 
-The project uses **Deep Q-Learning** to teach the agent how to play the game.
-
-### 🧠 Q-Network
-
-- Built with **TensorFlow** and **Keras**
-- Inputs: Current state (grid representation)
-- Outputs: Q-values for actions `[up, down, left, right]`
-
-### 🌀 State Representation
-
-- Grid with encoded values for:
-  - Empty space
-  - Snake body
-  - Snake head
-  - Fruit
-
-### 🔁 Replay Buffer
-
-- Stores experiences: `(state, action, reward, next_state, done)`
-- Random sampling breaks temporal correlations
-- Enables **efficient, stable learning**
+- **Environment**: 6x6 grid (modifiable via `bord_size`)
+- **Agent Goal**: Eat fruit, grow in size, avoid death
+- **Library Stack**: `TensorFlow`, `NumPy`, `Matplotlib`, `keyboard`
+- **Training**: Deep Q-Network with experience replay and epsilon-greedy policy
 
 ---
 
-## 🎯 Training Strategy
+## 🧠 Algorithm Highlights
 
-- **Exploration–Exploitation Tradeoff**:
-  - Starts with `epsilon = 1.0` (full exploration)
-  - Gradual decay toward `epsilon_min`
-  - Eventually favors best learned action (exploitation)
+- **State Space**: Flattened grid where:
+  - `0` = empty cell
+  - `1` = snake body
+  - `2` = snake head
+  - `10` = fruit
 
-### 🏆 Reward System
+- **Actions**:
+  - `0` = up
+  - `1` = down
+  - `2` = left
+  - `3` = right
 
-The Q-learning agent is guided by a custom reward structure to encourage optimal gameplay behavior:
+- **Q-Network**:
+  - 2 hidden layers (64 neurons, ReLU)
+  - Fully connected output layer (4 actions)
+  - Trained using Mean Squared Error loss
+
+- **Replay Buffer**:
+  - Stores `(state, action, reward, next_state, done)`
+  - Helps stabilize training by breaking correlation between samples
+
+---
+
+## 🏆 Reward System
 
 | Action                         | Reward  |
 |-------------------------------|---------|
@@ -61,13 +49,43 @@ The Q-learning agent is guided by a custom reward structure to encourage optimal
 | Moving closer to the fruit    | **+1**   |
 | Moving away from the fruit    | **-2**   |
 
+This helps the agent learn to:
+- Navigate intelligently toward fruit
+- Avoid risky or non-optimal moves
+
 ---
 
-## 🛠️ Development Environment
+## 🧪 Training
 
-- Developed and tested using **Visual Studio Code**
-- Uses a **Python virtual environment**
-- All required libraries are listed in `requirements.txt`
+- **Episodes**: 10,000
+- **Batch Size**: 64
+- **Discount Factor (γ)**: 0.99
+- **Epsilon Decay**: Starts at 1.0 → decays to 0.01
+- **Model**: Trained in TensorFlow using `Adam` optimizer
 
-### 📦 Dependencies
+Every 250 episodes, the agent's performance is visualized using a custom plotting function.
 
+---
+
+## 🎮 Playing the Snake (Manual Mode)
+
+The game can also be played manually using the keyboard 
+ (Was very usefull to test rules of the game)
+
+| Key (AZERTY) | Action  |
+|--------------|---------|
+| `Z`          | Up      |
+| `S`          | Down    |
+| `Q`          | Left    |
+| `D`          | Right   |
+
+Run `play_snake()` to launch manual mode.
+
+---
+
+## 📦 Dependencies
+
+Install the required libraries using:
+
+```bash
+pip install -r requirements.txt
