@@ -7,19 +7,22 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import keyboard
 
+max_step = 500
+bord_size = 6
+
 # Simple snake game environment class
 class SnakeEnv:
-    
-    
+
+
     def reset(self):
-        self.size_bord=4
+        self.size_bord= bord_size
         self.board = np.zeros((self.size_bord, self.size_bord), dtype=int)
         self.snake = [(0, 0), (0, 1), (0, 2)]  # Reset snake position
         self.board[0, 2] = 2  # Snake's head
         self.board[0, 1] = 1  # Snake's body
         self.board[0, 0] = 1  # Snake's body
-        self.fruit = (2, 2)  # Reset fruit position
-        self.board[2, 2] = 10  # Fruit
+        self.fruit = (3, 0)  # Reset fruit position
+        self.board[3, 0] = 10  # Fruit
         self.done = False
         return self.board.flatten()
 
@@ -60,7 +63,7 @@ class SnakeEnv:
             if distance_after < distance_before:
                 reward = +1  # Earn point for being closer
             elif distance_after > distance_before:
-                reward = -1  # Penalized for being going less close
+                reward = -2  # Penalized for being going less close
             else:
                 reward = 0
               
@@ -121,7 +124,7 @@ epsilon_decay = 0.995
 epsilon_min = 0.01
 episodes = 10000
 batch_size = 64
-buffer_size = 1000
+buffer_size = 10000
 
 # Initialize Q-network, optimizer, and replay buffer
 q_network = QNetwork(num_actions)
@@ -159,13 +162,15 @@ def see_snake():
     state = env.reset()
     done = False
     fig, ax = plt.subplots(figsize=(8, 8))
-    
+    step=0
     while not done:
+
         # Choose action based on the trained Q-network
         q_values = q_network(np.array([state], dtype=np.float32))
         action = np.argmax(q_values)
 
         next_state, reward, done = env.step(action)
+        step+=1
         state = next_state
         
         # Clear the axes and redraw the board
@@ -202,8 +207,9 @@ def see_snake():
                 ax.add_patch(patches.Rectangle((j, i), 1, 1, linewidth=1, edgecolor=edge_color, facecolor=color))
         ax.set_aspect('equal')
         plt.draw()  # Redraw the plot
-        plt.pause(0.5)  # Pause to visualize the board
-
+        plt.pause(0.3)  # Pause to visualize the board
+        if step==max_step:
+            done=True
     plt.close(fig)  # Close the plot after the game is done
 
 
@@ -215,8 +221,6 @@ for episode in range(episodes):
     step =0
     
     while not done:
-        if step==300:
-            done=True
         # Exploration vs exploitation
         if np.random.rand() < epsilon:
             action = np.random.choice(num_actions)
@@ -240,9 +244,10 @@ for episode in range(episodes):
 
         state = next_state
         total_reward += reward
-
+        if step==max_step:
+            done=True
     print(f"Episode {episode+1}/{episodes}, Total Reward: {total_reward}")
-    if episode %100==0 :
+    if episode %250==0 :
         see_snake()
     
 
