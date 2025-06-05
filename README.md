@@ -50,10 +50,16 @@ The project uses **Deep Q-Learning** to teach the agent how to play the game.
   - Gradual decay toward `epsilon_min`
   - Eventually favors best learned action (exploitation)
 
-- **Reward System**:
-  - **+1** for eating fruit
-  - **-1** for collisions
-  - Small positive/negative values for proximity movement
+### 🏆 Reward System
+
+The Q-learning agent is guided by a custom reward structure to encourage optimal gameplay behavior:
+
+| Action                         | Reward  |
+|-------------------------------|---------|
+| Eating a fruit                | **+100** |
+| Collision (game over)         | **-100** |
+| Moving closer to the fruit    | **+1**   |
+| Moving away from the fruit    | **-2**   |
 
 ---
 
